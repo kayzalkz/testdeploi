@@ -1,12 +1,24 @@
-# This file is used to build the infrastructure for a deployment.
-# After editing something here, apply the changes on the Diploi dashboard.
-# For more information, see https://diploi.com/yaml
-
 diploiVersion: v1.0
 components:
+  - name: Next.js
+    identifier: next
+    package: https://github.com/diploi/component-nextjs#main
+    env:
+      include:
+        - *
+  - name: Bun
+    identifier: bun
+    package: https://github.com/diploi/component-bun#main
+    env:
+      include:
+        - postgres.*
   - name: Node.js
     identifier: node
     package: https://github.com/diploi/component-nodejs#main
     env:
-      include: []
-addons: []
+      include:
+        - postgres.POSTGRES_USER:DB_USER
+addons:
+  - name: PostgreSQL
+    identifier: postgres
+    package: https://github.com/diploi/addon-postgres#main
